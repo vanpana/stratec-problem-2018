@@ -29,8 +29,8 @@ def read_from_file(filename):
             elif len(elements) == 5:
                 routes.append(Route(*elements))
 
-            # Save the line in the matrix
+            # Replace any non-zero values with negative one and save the line in the matrix
             else:
-                matrix.append([int(number) for number in elements])
+                matrix.append([-1 if int(number) != 0 else 0 for number in elements])
 
     return no_rows, no_cols, matrix, no_routes, routes
