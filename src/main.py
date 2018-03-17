@@ -4,19 +4,8 @@ from src.file_worker import read_from_file, save_to_file
 from src.path_finder import fill_matrix_with_possible_paths, get_shortest_path
 
 if __name__ == '__main__':
-    with open("../data/data.in", "r") as file:
-        file.readline()
-        lctr = 0
-        for line in file:
-            cctr = 0
-            for number in line.strip("\n").split(" "):
-                if number != "0":
-                    print(str(lctr) + " " + str(cctr) + " 0 " + number)
-                cctr += 1
-            lctr += 1
-    exit()
     # Read the data from file
-    no_rows, no_cols, matrix, no_routes, routes = read_from_file("../data/data.in")
+    no_rows, no_cols, no_height, matrix, no_routes, routes = read_from_file("../data/data.in")
 
     # Calculate shortest route for every pair
     for route in routes:

@@ -9,6 +9,7 @@ def read_from_file(filename):
     """
     no_rows = 0
     no_cols = 0
+    no_height = 0
     matrix = []
 
     no_routes = 0
@@ -22,19 +23,21 @@ def read_from_file(filename):
                 no_routes = int(elements[0])
 
             # Save the number of rows and cols
-            elif len(elements) == 2:
-                no_rows, no_cols = int(elements[0]), int(elements[1])
+            elif len(elements) == 3:
+                no_rows, no_cols, no_height = int(elements[0]), int(elements[1]), int(elements[2])
+                matrix = [[[[] for _ in range(no_height)] for _ in range(no_cols)] for _ in range (no_rows)]
 
             # Save the route
-            elif len(elements) == 5:
+            elif len(elements) == 7:
                 routes.append(Route(*elements))
 
             # Replace any non-zero values with negative one, all zero values with maximum possible value
             #  and save the line in the matrix
             else:
-                matrix.append([-1 if int(number) != 0 and int(number) != 2 else no_rows * no_cols for number in elements])
+                matrix[int(elements[0])][int(elements[1])][int(elements[2])] = elements[3]
+                # matrix.append([-1 if int(number) != 0 and int(number) != 2 else no_rows * no_cols for number in elements])
 
-    return no_rows, no_cols, matrix, no_routes, routes
+    return no_rows, no_cols, no_height, matrix, no_routes, routes
 
 
 def save_to_file(filename, solution):
