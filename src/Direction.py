@@ -6,3 +6,6 @@ class Direction(Enum):
     DOWN = "D"
     RIGHT = "R"
     LEFT = "L"
+    DESCEND = "Z"
+    PULL = "P"
+
