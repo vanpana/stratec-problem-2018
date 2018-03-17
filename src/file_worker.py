@@ -35,3 +35,8 @@ def read_from_file(filename):
                 matrix.append([-1 if int(number) != 0 and int(number) != 2 else no_rows * no_cols for number in elements])
 
     return no_rows, no_cols, matrix, no_routes, routes
+
+
+def save_to_file(filename, solution):
+    with open(filename, "a") as file:
+        file.write(solution + "\n")
