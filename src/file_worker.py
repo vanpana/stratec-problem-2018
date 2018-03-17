@@ -34,7 +34,11 @@ def read_from_file(filename):
             # Replace any non-zero values with negative one, all zero values with maximum possible value
             #  and save the line in the matrix
             else:
-                matrix[int(elements[0])][int(elements[1])][int(elements[2])] = elements[3]
+                if int(elements[3]) != 2 and int(elements[3]) != 0:
+                    value = -1
+                else:
+                    value = int(elements[3])
+                matrix[int(elements[0])][int(elements[1])][int(elements[2])] = value
                 # matrix.append([-1 if int(number) != 0 and int(number) != 2 else no_rows * no_cols for number in elements])
 
     return no_rows, no_cols, no_height, matrix, no_routes, routes

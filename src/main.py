@@ -13,7 +13,7 @@ if __name__ == '__main__':
         route_matrix = copy.deepcopy(matrix)
 
         # Mark the starting point
-        route_matrix[route.start_x][route.start_y] = 0
+        route_matrix[route.start_x][route.start_y][route.start_z] = 0
 
         # Fill the matrix with the distances from the start point to the destination
         fill_matrix_with_possible_paths(route_matrix, route.start_x, route.start_y, 1, route.destination_x, route.destination_y)
