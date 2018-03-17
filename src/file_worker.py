@@ -25,21 +25,21 @@ def read_from_file(filename):
             # Save the number of rows and cols
             elif len(elements) == 3:
                 no_rows, no_cols, no_height = int(elements[0]), int(elements[1]), int(elements[2])
-                matrix = [[[[] for _ in range(no_height)] for _ in range(no_cols)] for _ in range (no_rows)]
+                matrix = [[[no_rows * no_cols * no_height for _ in range(no_height)] for _ in range(no_cols)] for _ in range(no_rows)]
 
             # Save the route
             elif len(elements) == 7:
                 routes.append(Route(*elements))
 
-            # Replace any non-zero values with negative one, all zero values with maximum possible value
-            #  and save the line in the matrix
+            # Replace any non-zero values with negative one, all zero values with maximum possible value and add the
+            # element in the matrix
             else:
-                if int(elements[3]) != 2 and int(elements[3]) != 0:
+                if int(elements[3]) != 0:
                     value = -1
-                else:
-                    value = int(elements[3])
-                matrix[int(elements[0])][int(elements[1])][int(elements[2])] = value
-                # matrix.append([-1 if int(number) != 0 and int(number) != 2 else no_rows * no_cols for number in elements])
+
+                    # Fill with values from the bottom to the current height so the tube can't pass through
+                    for height in range(int(elements[2]) + 1):
+                        matrix[int(elements[0])][int(elements[1])][height] = value
 
     return no_rows, no_cols, no_height, matrix, no_routes, routes
 
