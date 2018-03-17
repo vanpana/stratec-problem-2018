@@ -1,35 +1,40 @@
 from src.Direction import Direction
 
 
-def fill_matrix_with_possible_paths(matrix, x, y, value, destination_x, destination_y):
+def fill_matrix_with_possible_paths(matrix, current_x, current_y, value, destination_x, destination_y):
     """
+    Applies Lee's algorithm and fills the matrix with the distances from the starting point
     :rtype: Filled matrix with possible distances
     """
-    if x == destination_x and y == destination_y:
+    if current_x == destination_x and current_y == destination_y:
         return value
 
     # Check Up
-    if x - 1 > 0 and value + 1 < matrix[x - 1][y]:
-        matrix[x - 1][y] = value
-        fill_matrix_with_possible_paths(matrix, x - 1, y, value + 1, destination_x, destination_y)
+    if current_x - 1 > 0 and value + 1 < matrix[current_x - 1][current_y]:
+        matrix[current_x - 1][current_y] = value
+        fill_matrix_with_possible_paths(matrix, current_x - 1, current_y, value + 1, destination_x, destination_y)
 
     # Check Down
-    if x + 1 < len(matrix) and value + 1 < matrix[x + 1][y]:
-        matrix[x + 1][y] = value
-        fill_matrix_with_possible_paths(matrix, x + 1, y, value + 1, destination_x, destination_y)
+    if current_x + 1 < len(matrix) and value + 1 < matrix[current_x + 1][current_y]:
+        matrix[current_x + 1][current_y] = value
+        fill_matrix_with_possible_paths(matrix, current_x + 1, current_y, value + 1, destination_x, destination_y)
 
     # Check Left
-    if y - 1 >= 0 and value + 1 < matrix[x][y - 1]:
-        matrix[x][y - 1] = value
-        fill_matrix_with_possible_paths(matrix, x, y - 1, value + 1, destination_x, destination_y)
+    if current_y - 1 >= 0 and value + 1 < matrix[current_x][current_y - 1]:
+        matrix[current_x][current_y - 1] = value
+        fill_matrix_with_possible_paths(matrix, current_x, current_y - 1, value + 1, destination_x, destination_y)
 
     # Check Right
-    if y + 1 < len(matrix[y - 1]) and value + 1 < matrix[x][y + 1]:
-        matrix[x][y + 1] = value
-        fill_matrix_with_possible_paths(matrix, x, y + 1, value + 1, destination_x, destination_y)
+    if current_y + 1 < len(matrix[current_y - 1]) and value + 1 < matrix[current_x][current_y + 1]:
+        matrix[current_x][current_y + 1] = value
+        fill_matrix_with_possible_paths(matrix, current_x, current_y + 1, value + 1, destination_x, destination_y)
 
 
 def get_shortest_path(matrix, destination_x, destination_y):
+    """
+    Creates a list with the shortest directions from the start to the destination
+    :rtype: list of Directions
+    """
     path = []
     distance = matrix[destination_x][destination_y]
 
