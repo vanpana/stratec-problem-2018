@@ -2,7 +2,7 @@ import copy
 
 import sys
 
-from src.file_worker import read_from_file, save_to_file
+from src.file_worker import read_from_file, save_to_file, build_solution
 from src.path_finder import fill_matrix_with_possible_paths, get_shortest_path
 
 if __name__ == '__main__':
@@ -24,12 +24,11 @@ if __name__ == '__main__':
         fill_matrix_with_possible_paths(route_matrix, route.start_x, route.start_y, route.start_z, 1,
                                         route.destination_x, route.destination_y, route.destination_z)
 
-        # Build the solution string
-        solution = str(route.index) + "\n"
-        for direction in get_shortest_path(route_matrix, route.destination_x, route.destination_y, route.destination_z):
-            solution += direction.value + " "
+        # Get the shortest path
+        path = get_shortest_path(route_matrix, route.destination_x, route.destination_y, route.destination_z)
 
-        print(solution)
+        # Build the solution string (acceleration parameter is optional)
+        solution = build_solution(route.index, path, acceleration=True)
 
         # Append the solution to the output file
         save_to_file("../data/data.out", solution)

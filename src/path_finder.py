@@ -203,4 +203,39 @@ def get_shortest_path(matrix, destination_x, destination_y, destination_z):
     # Reverse the path
     path.reverse()
 
+    # Return the path
     return path
+
+
+def accelerate(solution):
+    """
+    Finds sequences to accelerate the process
+    :rtype: String - accelerated solution
+    """
+    # Get rid of the spaces in the solution
+    solution = solution.split(" ")
+
+    # Initialize the accelerated values
+    accelerated = [solution[0]]  # array for storing values that appear more than once in a sequence
+    accelerated_index = [0]  # array for storing the start indexes of each sequence
+
+    # Determine the sequences and add the values to the arrays
+    for index in range(1, len(solution)):
+        if solution[index] != accelerated[-1]:
+            accelerated.append(solution[index])
+            accelerated_index.append(index)
+
+    # Initialize the accelerated solution
+    accelerated_solution = ""
+
+    # Group every sequence in an "accelerated" action
+    for index in range(len(accelerated_index) - 1):
+        for char in (solution[accelerated_index[index]:accelerated_index[index + 1]]):
+            accelerated_solution += char
+        accelerated_solution += " "
+
+    # Add the last sequence to the solution
+    for char in solution[accelerated_index[-1]:]:
+        accelerated_solution += char
+
+    return accelerated_solution

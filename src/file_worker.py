@@ -1,3 +1,4 @@
+from src.path_finder import accelerate
 from src.route import Route
 
 
@@ -47,3 +48,20 @@ def read_from_file(filename):
 def save_to_file(filename, solution):
     with open(filename, "a") as file:
         file.write(solution + "\n")
+
+
+def build_solution(route_index, path, acceleration=False):
+    """
+    Builds the solution (acceleration is optional)
+    :rtype: Solution as a string
+    """
+    solution = ""
+    for direction in path:
+        solution += direction.value + " "
+
+    if acceleration:
+        solution = accelerate(solution)
+
+    solution = str(route_index) + "\n" + solution
+
+    return solution
